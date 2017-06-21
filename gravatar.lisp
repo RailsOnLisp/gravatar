@@ -6,9 +6,9 @@
 (defun hash (email)
   (ironclad:byte-array-to-hex-string
    (ironclad:digest-sequence :md5
-			     (trivial-utf-8:string-to-utf-8-bytes
-			      (string-downcase (string-trim '(#\Space)
-							    email))))))
+                             (trivial-utf-8:string-to-utf-8-bytes
+                              (string-downcase (string-trim '(#\Space)
+                                                            email))))))
 
 (defun image-url (email &key size default force-default-p rating)
   "DEFAULT may be either a URL to your own image, or one of :404, :mm,
@@ -22,19 +22,19 @@
     (when force-default-p (push '("f" . "y") parameters))
     (when rating (push `("r" . ,(string-downcase rating)) parameters))
     (format nil "~Aavatar/~A~@[?~A~]"
-	    +base-uri+
-	    (hash email)
-	    (drakma::alist-to-url-encoded-string parameters
-						 :utf-8
-						 #'drakma:url-encode))))
+            +base-uri+
+            (hash email)
+            (drakma::alist-to-url-encoded-string parameters
+                                                 :utf-8
+                                                 #'drakma:url-encode))))
 
 (defun generate-profile-url (email type parameters)
   (format nil "~Ag2-~A.~A~@[?~A~]"
-	  +base-uri+
-	  (hash email)
-	  (string-downcase type)
-	  (drakma::alist-to-url-encoded-string parameters
-					       :utf-8)))
+          +base-uri+
+          (hash email)
+          (string-downcase type)
+          (drakma::alist-to-url-encoded-string parameters
+                                               :utf-8)))
 
 (defun profile-url (email js-callback)
   (generate-profile-url email

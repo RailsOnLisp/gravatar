@@ -25,7 +25,8 @@
 	    +base-uri+
 	    (hash email)
 	    (drakma::alist-to-url-encoded-string parameters
-						 :utf-8))))
+						 :utf-8
+						 #'drakma:url-encode))))
 
 (defun generate-profile-url (email type parameters)
   (format nil "~Ag2-~A.~A~@[?~A~]"
